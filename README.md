@@ -98,5 +98,6 @@ Two things to know before treating this as production-ready:
 
 - **Stripe is in test mode.** Card `4242 4242 4242 4242` succeeds; no money moves.
 - **Product photography is Unsplash stand-in imagery**, chosen to match each product but
-  not shot for it. Two of the photos show third-party brand labels (the coffee bag and the
-  chilli salt jar). Replace them with your own before this fronts a real shop.
+  not shot for it. All 17 images are unbranded — the two labelled shots (a coffee bag and a
+  chilli salt jar) have been replaced with unmarked equivalents. Swap in your own photography
+  before this fronts a real shop.

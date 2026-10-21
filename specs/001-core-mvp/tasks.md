@@ -354,6 +354,55 @@ Deviations).
 Task 15 is **not** complete until the production checkout produces an order row that shows
 up in `/account` and `/admin`, with a 200 in the Stripe delivery log.
 
+
+**Production smoke test — verified from the data, not from the screen**
+
+| Check | Evidence |
+| --- | --- |
+| Payment captured | `pi_3UShpHDt5fMTYGJd2H4Rkh6X`, `succeeded`, 1900¢, 18:31:55Z |
+| Order recorded | `ad5be91b-7139-474f-ba05-a5d8e75c4c26`, status `paid`, 18:32:20Z — 25 s after capture |
+| Totals | 1400 subtotal + 500 shipping = 1900, matching the PaymentIntent to the cent |
+| Line item | Smoked Chili Salt, 250 g variant, qty 1, 1400¢, correct `product_id` |
+| Shipping address | Captured from PaymentIntent metadata (name, line1/2, city, CA, 94110, US) |
+| Idempotency | exactly **1** order for that PaymentIntent |
+| Cart cleanup | 0 cart items remaining for the user |
+
+**A webhook endpoint already existed pointing at the site root** (`https://shopcommerce-nine.vercel.app/`).
+Deliveries to `/` return 200 from the homepage, so Stripe would have logged success on every
+order while `orders` stayed empty. Corrected to `/api/webhook/stripe` via the Stripe API before
+the first payment; no payment had been taken in that window, so nothing was lost.
+
+**Deviations**
+- Preview-deployment check not performed: work went straight to `main`, so no PR existed.
+- `.trash/` still holds the parked files locally (git-ignored). Delete when convenient.
+- Test-mode only, as specified.
+
+**Task 15: complete.**
+
+## Post-completion polish
+
+**Imagery — third-party branding removed.** Two Unsplash photos carried readable brand
+labels, which is a credibility problem on a portfolio storefront. Replaced in the database
+and in `seed.sql` (so a reseed matches):
+
+| Product | Was | Now |
+| --- | --- | --- |
+| Single-Origin Filter Coffee | `photo-1512372388054-a322888e67a6` (branded "Little Nap" bag) | `photo-1695245503558-5cdb37f49092` (plain kraft bag) |
+| Smoked Chili Salt | `photo-1765984551507-0e28868a404f` (branded jar) | `photo-1594813592990-2449cd47da8b` (unmarked glass jar) |
+
+Both new URLs verified at 1200×1500 (HTTP 200) and rendered on the production product pages.
+All 17 catalogue images are now unbranded; `README.md` updated accordingly.
+
+**LCP — investigated and deliberately left alone.** Lighthouse reported LCP 3.1 s on the
+production build. Measured the actual LCP element in a browser on the live site: it is the
+home `<h1>` ("Kitchen things worth keeping."), not an image. The earlier plan to add
+`priority` to the first `CategoryCard` image would have changed nothing. Fonts already set
+`display: 'swap'`; the remaining delay is the display font arriving after the render-blocking
+stylesheet. The available fixes (`display: 'optional'`, or deferring the stylesheet) trade
+first-visit typography — the brand's entire identity — for a metric already passing at 94.
+Documented rather than "fixed".
+
+
 ---
 
 ## Dependency Graph

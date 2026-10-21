@@ -92,7 +92,7 @@ values
     'Smoked Chili Salt', 'smoked-chili-salt',
     'Sea salt smoked over oak, then mixed with crushed Urfa chili. Good on eggs, tomatoes, and anything off the grill.',
     1400,
-    array['https://images.unsplash.com/photo-1765984551507-0e28868a404f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=1500&q=80'],
+    array['https://images.unsplash.com/photo-1594813592990-2449cd47da8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=1500&q=80'],
     '{"sizes":["100 g","250 g"],"colors":[]}'::jsonb,
     true, 10
   ),
@@ -110,7 +110,7 @@ values
     'Single-Origin Filter Coffee', 'single-origin-filter-coffee',
     'Washed Ethiopian, roasted weekly. Tastes like bergamot and apricot, not like a candle. Whole bean unless you ask otherwise.',
     1900,
-    array['https://images.unsplash.com/photo-1512372388054-a322888e67a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=1500&q=80'],
+    array['https://images.unsplash.com/photo-1695245503558-5cdb37f49092?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=1500&q=80'],
     '{"sizes":["250 g","1 kg"],"colors":[]}'::jsonb,
     true, 30
   ),
